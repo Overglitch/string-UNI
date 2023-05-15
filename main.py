@@ -17,9 +17,8 @@ main_html = """
     var ctx;
 
     function getRndLetter() {
-        const letters = ["U", "N", "I"];
-        const index = Math.floor(Math.random() * letters.length);
-        return letters[index];
+        var letters = ["U", "N", "I"];
+        return letters[Math.floor(Math.random() * letters.length)];
     }
 
     function InitThis() {
@@ -27,7 +26,7 @@ main_html = """
 
         letra = getRndLetter();
 
-        document.getElementById('mensaje').innerHTML  = 'Dibujando la' + letra;
+        document.getElementById('mensaje').innerHTML  = 'Dibujando la letra: ' + letra;
         document.getElementById('letra').value = letra;
 
         $('#myCanvas').mousedown(function (e) {
@@ -116,7 +115,7 @@ def upload():
         letra = request.form.get("letra")
         print(letra)
         with tempfile.NamedTemporaryFile(
-            delete=False, mode="w+b", suffix=".png", dir=letra
+            delete=False, mode="w+b", suffix=".png", dir=str(letra)
         ) as fh:
             fh.write(base64.b64decode(img_data))
         # file = request.files['myImage']
